@@ -1,10 +1,19 @@
 import { Sequelize, DataTypes, Model } from "sequelize";
 
-const sequelize = new Sequelize("peluditos", "root", "", {
-  host: "localhost",
-  dialect: "mysql",
-  logging: false,
-});
+import * as dotenv from 'dotenv';
+dotenv.config();
+
+const sequelize = process.env.DATABASE_URL
+  ? new Sequelize(process.env.DATABASE_URL, {
+      dialect: process.env.DATABASE_URL.startsWith("postgres") ? "postgres" : "mysql",
+      dialectOptions: process.env.DATABASE_URL.startsWith("postgres") ? { ssl: { require: true, rejectUnauthorized: false } } : undefined,
+      logging: false,
+    })
+  : new Sequelize("peluditos", "root", "", {
+      host: "localhost",
+      dialect: "mysql",
+      logging: false,
+    });
 
 class User extends Model {}
 User.init({
