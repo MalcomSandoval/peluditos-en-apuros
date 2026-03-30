@@ -35,7 +35,7 @@ export default function AdminDashboard({ user }) {
   // Load Data
   const loadStats = () => {
     if (isVolunteer) return;
-    axios.get('http://localhost:5000/api/adoptions/status')
+    axios.get(`${import.meta.env.VITE_API_URL}/api/adoptions/status`)
       .then(res => { 
         setStats(res.data.stats); 
         setMonthlyLabels(res.data.monthly.labels);
@@ -45,21 +45,21 @@ export default function AdminDashboard({ user }) {
   };
 
   const loadAnimals = () => {
-    axios.get('http://localhost:5000/api/animals')
+    axios.get(`${import.meta.env.VITE_API_URL}/api/animals`)
       .then(res => setAnimals(res.data))
       .catch(console.error);
   };
 
   const loadRequests = () => {
     if (isVolunteer) return;
-    axios.get('http://localhost:5000/api/adoptions')
+    axios.get(`${import.meta.env.VITE_API_URL}/api/adoptions`)
       .then(res => setRequests(res.data))
       .catch(console.error);
   };
 
   const loadVolunteers = () => {
     if (isVolunteer) return;
-    axios.get('http://localhost:5000/api/users/volunteers')
+    axios.get(`${import.meta.env.VITE_API_URL}/api/users/volunteers`)
       .then(res => setVolunteers(res.data))
       .catch(console.error);
   };
@@ -76,9 +76,9 @@ export default function AdminDashboard({ user }) {
     e.preventDefault();
     try {
       if (editingAnimalId) {
-        await axios.put(`http://localhost:5000/api/animals/${editingAnimalId}`, newAnimal);
+        await axios.put(`${import.meta.env.VITE_API_URL}/api/animals/${editingAnimalId}`, newAnimal);
       } else {
-        await axios.post('http://localhost:5000/api/animals', newAnimal);
+        await axios.post(`${import.meta.env.VITE_API_URL}/api/animals`, newAnimal);
       }
       setShowModal(false);
       setEditingAnimalId(null);
@@ -90,7 +90,7 @@ export default function AdminDashboard({ user }) {
 
   const handleDeleteAnimal = async (id) => {
     if (window.confirm("¿Seguro que deseas eliminar este registro?")) {
-      await axios.delete(`http://localhost:5000/api/animals/${id}`);
+      await axios.delete(`${import.meta.env.VITE_API_URL}/api/animals/${id}`);
       loadAnimals();
       loadStats();
     }
@@ -99,7 +99,7 @@ export default function AdminDashboard({ user }) {
   // Adoption Request Actions
   const handleRequestStatus = async (id, status) => {
     try {
-      await axios.put(`http://localhost:5000/api/adoptions/${id}`, { status });
+      await axios.put(`${import.meta.env.VITE_API_URL}/api/adoptions/${id}`, { status });
       loadRequests();
       loadAnimals();
       loadStats();
@@ -110,7 +110,7 @@ export default function AdminDashboard({ user }) {
   const handleVolunteerStatus = async (id, status) => {
     try {
       if (window.confirm(`¿Seguro que deseas ${status === 'APPROVED' ? 'Aprobar' : 'Rechazar'} la solicitud de paso a pasante?`)) {
-        await axios.put(`http://localhost:5000/api/users/${id}/role`, { status });
+        await axios.put(`${import.meta.env.VITE_API_URL}/api/users/${id}/role`, { status });
         loadVolunteers();
       }
     } catch { alert('Error resolviendo pasantía'); }
@@ -208,7 +208,7 @@ export default function AdminDashboard({ user }) {
   // --- PDF GENERATION: STATS REPORTS ---
   const generateStatsReport = async (type) => {
     try {
-      const res = await axios.get(`http://localhost:5000/api/adoptions/report?type=${type}`);
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/adoptions/report?type=${type}`);
       const reportData = res.data;
 
       const doc = new jsPDF();

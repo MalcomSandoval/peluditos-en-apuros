@@ -8,7 +8,7 @@ export default function Home({ user }) {
 
   const handleApplyVolunteer = async () => {
     try {
-      await axios.post(`http://localhost:5000/api/users/${user.id}/volunteer`);
+      await axios.post(`${import.meta.env.VITE_API_URL}/api/users/${user.id}/volunteer`);
       setHasApplied(true);
       
       // Update local storage visually

@@ -9,7 +9,7 @@ export default function AnimalGallery() {
 
   useEffect(() => {
     // Fetch from our local backend running on port 5000
-    axios.get('http://localhost:5000/api/animals')
+    axios.get(`${import.meta.env.VITE_API_URL}/api/animals`)
       .then(res => {
         setAnimals(res.data);
         setLoading(false);

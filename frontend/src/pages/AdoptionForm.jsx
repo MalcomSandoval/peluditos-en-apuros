@@ -27,7 +27,7 @@ export default function AdoptionForm({ user }) {
     }
 
     try {
-      await axios.post('http://localhost:5000/api/adoptions', {
+      await axios.post(`${import.meta.env.VITE_API_URL}/api/adoptions`, {
         animalId: parseInt(id),
         userId: user?.id || 1,
         housingType: formData.housingType,
