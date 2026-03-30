@@ -255,6 +255,13 @@ button {
   box-shadow: 0 0 0 4px rgba(211, 84, 0, 0.1);
 }
 
+.admin-tabs-mobile {
+  display: none;
+}
+.admin-tabs-desktop {
+  display: flex;
+}
+
 /* Grid Layouts */
 .grid-cols-1 { display: grid; grid-template-columns: 1fr; gap: 30px; }
 .grid-cols-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; }
@@ -391,19 +398,21 @@ button {
     overflow-x: auto;
   }
   
-  /* Navbar interna del Admin */
-  .admin-top-nav {
-    overflow-x: auto;
-    flex-wrap: nowrap !important;
-    justify-content: flex-start !important;
-    -ms-overflow-style: none;
-    scrollbar-width: none;
+  /* Navbar Dropdown Admin */
+  .admin-tabs-desktop {
+    display: none !important;
   }
-  .admin-top-nav::-webkit-scrollbar {
-    display: none;
+  .admin-tabs-mobile {
+    display: block !important;
+    width: 100%;
+    margin-bottom: 24px;
   }
-  .admin-top-nav button {
-    white-space: nowrap;
+  .admin-tabs-mobile select {
+    font-size: 1.1rem;
+    padding: 12px 16px;
+    font-weight: 700;
+    color: var(--color-primary-dark);
+    box-shadow: var(--shadow-sm);
   }
   table {
     min-width: 600px; /* Forces horizontal scroll instead of squishing */

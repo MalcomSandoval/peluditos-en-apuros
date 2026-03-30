@@ -271,12 +271,28 @@ export default function AdminDashboard({ user }) {
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '32px' }}>
         <h2>Dashboard {isVolunteer ? 'de Voluntariado' : 'Administrativo'}</h2>
         {!isVolunteer && (
-          <div className="admin-top-nav" style={{ display: 'flex', gap: '16px', background: 'var(--color-bg-card)', padding: '8px', borderRadius: 'var(--radius-xl)', boxShadow: 'var(--shadow-sm)' }}>
-            <button onClick={() => setActiveTab('overview')} className={`btn ${activeTab === 'overview' ? 'btn-mustard' : ''}`} style={{ padding: '8px 20px', fontSize: '0.9rem' }}>Resumen</button>
-            <button onClick={() => setActiveTab('animals')} className={`btn ${activeTab === 'animals' ? 'btn-mustard' : ''}`} style={{ padding: '8px 20px', fontSize: '0.9rem' }}>Gestión Mascotas</button>
-            <button onClick={() => setActiveTab('requests')} className={`btn ${activeTab === 'requests' ? 'btn-mustard' : ''}`} style={{ padding: '8px 20px', fontSize: '0.9rem' }}>Solicitudes</button>
-            <button onClick={() => setActiveTab('volunteers')} className={`btn ${activeTab === 'volunteers' ? 'btn-mustard' : ''}`} style={{ padding: '8px 20px', fontSize: '0.9rem' }}>Pasantes</button>
-          </div>
+          <>
+            <div className="admin-tabs-desktop" style={{ gap: '16px', background: 'var(--color-bg-card)', padding: '8px', borderRadius: 'var(--radius-xl)', boxShadow: 'var(--shadow-sm)' }}>
+              <button onClick={() => setActiveTab('overview')} className={`btn ${activeTab === 'overview' ? 'btn-mustard' : ''}`} style={{ padding: '8px 20px', fontSize: '0.9rem' }}>Resumen</button>
+              <button onClick={() => setActiveTab('animals')} className={`btn ${activeTab === 'animals' ? 'btn-mustard' : ''}`} style={{ padding: '8px 20px', fontSize: '0.9rem' }}>Gestión Mascotas</button>
+              <button onClick={() => setActiveTab('requests')} className={`btn ${activeTab === 'requests' ? 'btn-mustard' : ''}`} style={{ padding: '8px 20px', fontSize: '0.9rem' }}>Solicitudes</button>
+              <button onClick={() => setActiveTab('volunteers')} className={`btn ${activeTab === 'volunteers' ? 'btn-mustard' : ''}`} style={{ padding: '8px 20px', fontSize: '0.9rem' }}>Pasantes</button>
+            </div>
+            
+            <div className="admin-tabs-mobile">
+              <select 
+                className="input-control" 
+                value={activeTab} 
+                onChange={(e) => setActiveTab(e.target.value)} 
+                style={{ borderRadius: 'var(--radius-md)', cursor: 'pointer', background: 'var(--color-bg-card)', border: '2px solid var(--color-primary-light)' }}
+              >
+                <option value="overview">📊 Resumen de Adopciones</option>
+                <option value="animals">🐕 Gestión de Mascotas</option>
+                <option value="requests">📝 Revisar Solicitudes</option>
+                <option value="volunteers">🧑‍🤝‍🧑 Lista de Pasantes</option>
+              </select>
+            </div>
+          </>
         )}
       </div>
 
