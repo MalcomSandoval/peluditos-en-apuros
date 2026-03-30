@@ -271,7 +271,7 @@ export default function AdminDashboard({ user }) {
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '32px' }}>
         <h2>Dashboard {isVolunteer ? 'de Voluntariado' : 'Administrativo'}</h2>
         {!isVolunteer && (
-          <div style={{ display: 'flex', gap: '16px', background: 'var(--color-bg-card)', padding: '8px', borderRadius: 'var(--radius-xl)', boxShadow: 'var(--shadow-sm)' }}>
+          <div className="admin-top-nav" style={{ display: 'flex', gap: '16px', background: 'var(--color-bg-card)', padding: '8px', borderRadius: 'var(--radius-xl)', boxShadow: 'var(--shadow-sm)' }}>
             <button onClick={() => setActiveTab('overview')} className={`btn ${activeTab === 'overview' ? 'btn-mustard' : ''}`} style={{ padding: '8px 20px', fontSize: '0.9rem' }}>Resumen</button>
             <button onClick={() => setActiveTab('animals')} className={`btn ${activeTab === 'animals' ? 'btn-mustard' : ''}`} style={{ padding: '8px 20px', fontSize: '0.9rem' }}>Gestión Mascotas</button>
             <button onClick={() => setActiveTab('requests')} className={`btn ${activeTab === 'requests' ? 'btn-mustard' : ''}`} style={{ padding: '8px 20px', fontSize: '0.9rem' }}>Solicitudes</button>
@@ -444,8 +444,8 @@ export default function AdminDashboard({ user }) {
 
       {/* Basic Modal for new animal */}
       {showModal && (
-        <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0,0,0,0.5)', zIndex: 999, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-          <div className="animal-card" style={{ width: '500px', padding: '32px', maxHeight: '90vh', overflowY: 'auto' }}>
+        <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0,0,0,0.5)', zIndex: 999, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '16px' }}>
+          <div className="animal-card" style={{ width: '100%', maxWidth: '500px', padding: '24px', maxHeight: '90vh', overflowY: 'auto' }}>
             <h3 style={{ marginBottom: '20px' }}>{editingAnimalId ? 'Editar Peludito' : 'Registrar Nuevo Rescatado'}</h3>
             <form onSubmit={handleSaveAnimal}>
               <div className="input-group"><label>Nombre</label><input required className="input-control" value={newAnimal.name} onChange={e => setNewAnimal({...newAnimal, name: e.target.value})} /></div>

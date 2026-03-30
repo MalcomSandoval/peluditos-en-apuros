@@ -386,9 +386,24 @@ button {
   }
   
   /* Tables */
-  .card {
-    padding: 16px;
+  .card, .animal-card {
+    padding: 16px !important;
     overflow-x: auto;
+  }
+  
+  /* Navbar interna del Admin */
+  .admin-top-nav {
+    overflow-x: auto;
+    flex-wrap: nowrap !important;
+    justify-content: flex-start !important;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .admin-top-nav::-webkit-scrollbar {
+    display: none;
+  }
+  .admin-top-nav button {
+    white-space: nowrap;
   }
   table {
     min-width: 600px; /* Forces horizontal scroll instead of squishing */
