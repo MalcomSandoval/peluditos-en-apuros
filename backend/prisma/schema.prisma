@@ -1,0 +1,58 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  password  String
+  name      String
+  role      String   @default("ADOPTER") // "ADMIN", "VOLUNTEER", "ADOPTER"
+  createdAt DateTime @default(now())
+
+  adoptionRequests AdoptionRequest[]
+}
+
+model Animal {
+  id           Int      @id @default(autoincrement())
+  name         String
+  age          String
+  breed        String
+  size         String
+  healthStatus String
+  description  String
+  photos       String   // Serialized JSON array
+  status       String   @default("AVAILABLE") // "AVAILABLE", "PROCESS", "ADOPTED"
+  createdAt    DateTime @default(now())
+
+  adoptionRequests AdoptionRequest[]
+}
+
+model AdoptionRequest {
+  id          Int      @id @default(autoincrement())
+  userId      Int
+  animalId    Int
+  housingType String
+  experience  String
+  status      String   @default("PENDING") // "PENDING", "APPROVED", "REJECTED"
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  user     User      @relation(fields: [userId], references: [id])
+  animal   Animal    @relation(fields: [animalId], references: [id])
+  contract Contract?
+}
+
+model Contract {
+  id                Int      @id @default(autoincrement())
+  adoptionRequestId Int      @unique
+  contractUrl       String
+  signedAt          DateTime @default(now())
+
+  adoptionRequest AdoptionRequest @relation(fields: [adoptionRequestId], references: [id])
+}
